@@ -1,34 +1,38 @@
 // Helloworld.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
 #include <iostream>
-template <typename T>
-class SquarePair
+
+class Tracer
 {
-	class SquareProxy
-	{
-		T _underliyng;
-	public:
-		explicit SquareProxy(T val) : _underliyng(val) {}
-		operator T() { return _underliyng * _underliyng; }
-	}; 
 public:
-	using first_type = T;
-	using second_type = T;
-	T first;
-	SquareProxy second;
-	explicit SquarePair(T val) : first(val), second(val) {}
+	Tracer() { std::cout << "Default constructor\n"; }
+	Tracer(const Tracer&) { std::cout << "Copy constructor\n"; }
+	Tracer(Tracer&&) { std::cout << "Move constructor\n"; }
+	Tracer& operator=(const Tracer&) { std::cout << "Copy assignment\n"; return* this; }
+	Tracer& operator=(Tracer&&) { std::cout << "Move assignment\n"; return *this; }
+	~Tracer() { std::cout << "Destructor\n"; }
 };
 
-template <typename PAIR, typename PAIR::first_type* dummy1 = nullptr, typename PAIR::second_type* dummy2 = nullptr>
-std::ostream& operator<<(std::ostream& out, const PAIR& pair)
+void f1(const Tracer& t)
 {
-	return out << pair.first << ' ' << pair.second;
+	std::cout << "f1 called\n";
+	Tracer local(t);
+	std::cout << "f1 local created " << (void*)&local << "\n" ;
+
+}
+
+void f2(Tracer t)
+{
+	std::cout << "f2 called\n";
+	Tracer local(std::move(t));
+	std::cout << "f2 local created " << (void*)& local << "\n";
+
 }
 int main()
 {
-	SquarePair<int> x{ 5 };
-    std::cout << x ; 
+	f1(Tracer()) ; 
+	f2(Tracer());
+	return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
