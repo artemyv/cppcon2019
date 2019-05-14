@@ -19,3 +19,7 @@ We may also use: http://quick-bench.com for benchmarks
 https://taas.trust-in-soft.com/tsnippet/# to pinpoint undefined behavior
 https://cppinsights.io to see our code in the eyes of the compiler
 and https://godbolt.org to see the generated assembler from our code
+
+
+const X&&
+sample http://stackoverflow.com/a/14742636
