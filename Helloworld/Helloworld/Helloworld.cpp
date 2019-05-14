@@ -2,10 +2,26 @@
 //
 
 #include <iostream>
-
+template <typename T>
+class SquareProxy
+{
+	T _underliyng;
+public:
+	explicit SquareProxy(T val) : _underliyng(val) {}
+	operator T() { return _underliyng * _underliyng; }
+};
+template <typename T>
+class SquarePair
+{
+public:
+	T first;
+	SquareProxy<T> second;
+	explicit SquarePair(T val) : first(val), second(val) {}
+};
 int main()
 {
-    std::cout << "Hello World!\n"; 
+	SquarePair<int> x{ 5 };
+    std::cout << x.first << " " << x.second << "\n"; 
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
