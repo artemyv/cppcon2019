@@ -33,8 +33,9 @@ public:
 int main() {
 	// counter of number of lessons a person was in
 	map<Person, int> personCount;
-	personCount[Person{ "momo" }] = 1;
-	personCount[Person{ "koko" }] = 2;
+	personCount.emplace( "momo" , 1 );
+	personCount.emplace( "koko" , 2 );
+	//{ "koko" ,  2} };
 
 	// in this example we show how auto is smartly getting the correct type
 	// which may be mistakenly stated otherwise if type is selected manually 
