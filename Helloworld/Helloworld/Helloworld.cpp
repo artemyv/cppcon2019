@@ -1,47 +1,61 @@
-// Helloworld.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-#include <iostream>
+//==================================
+// 'auto' deducing the correct type
+// and preventing inefficiencies
+// @author Amir Kirsh
+//==================================
 
-class Tracer
-{
+#include <iostream>
+#include <string>
+#include <map>
+
+using std::cout;
+using std::endl;
+using std::string;
+using std::map;
+
+class Person {
+	string name;
 public:
-	Tracer() { std::cout << "Default constructor\n"; }
-	Tracer(const Tracer&) { std::cout << "Copy constructor\n"; }
-	Tracer(Tracer&&) { std::cout << "Move constructor\n"; }
-	Tracer& operator=(const Tracer&) { std::cout << "Copy assignment\n"; return* this; }
-	Tracer& operator=(Tracer&&) { std::cout << "Move assignment\n"; return *this; }
-	~Tracer() { std::cout << "Destructor\n"; }
+	Person(string name1) : name(name1) {}
+	Person(const Person& p) : name(p.name) {
+		cout << "in copy ctor for " << name << endl;
+	}
+
+	friend std::ostream& operator<<(std::ostream& out, const Person& p) {
+		return out << p.name;
+	}
+	bool operator<(const Person& other)const {
+		return name < other.name;
+	}
 };
 
-void f1(const Tracer& t)
-{
-	std::cout << "f1 called\n";
-	Tracer local(t);
-	std::cout << "f1 local created " << (void*)&local << "\n" ;
+// main.cpp
+int main() {
+	// counter of number of lessons a person was in
+	map<Person, int> personCount;
+	personCount[Person{ "momo" }] = 1;
+	personCount[Person{ "koko" }] = 2;
 
+	// in this example we show how auto is smartly getting the correct type
+	// which may be mistakenly stated otherwise if type is selected manually 
+
+	cout << "=========================================" << endl;
+	cout << 1 << endl;
+	cout << "=========================================" << endl;
+	for (const auto& pCount : personCount) {
+		cout << pCount.first << ": " << pCount.second << endl;
+	}
+	cout << "=========================================" << endl;
+	cout << 2 << endl;
+	cout << "=========================================" << endl;
+	for (const std::pair<Person, int>& pCount : personCount) {
+		cout << pCount.first << ": " << pCount.second << endl;
+	}
+	cout << "=========================================" << endl;
+	cout << 3 << endl;
+	cout << "=========================================" << endl;
+	for (const std::pair<const Person, int>& pCount : personCount) {
+		cout << pCount.first << ": " << pCount.second << endl;
+	}
 }
 
-void f2(Tracer t)
-{
-	std::cout << "f2 called\n";
-	Tracer local(std::move(t));
-	std::cout << "f2 local created " << (void*)& local << "\n";
-
-}
-int main()
-{
-	f1(Tracer()) ; 
-	f2(Tracer());
-	return 0;
-}
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
