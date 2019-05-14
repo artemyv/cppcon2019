@@ -1,62 +1,43 @@
-//==================================
-// 'auto' deducing the correct type
-// and preventing inefficiencies
-// @author Amir Kirsh
-//==================================
+// Helloworld.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
 
 #include <iostream>
-#include <string>
-#include <map>
-
-using std::cout;
-using std::endl;
-using std::string;
-using std::map;
-
-class Person {
-	string name;
+template <typename T>
+class SquarePair
+{
+	class SquareProxy
+	{
+		T _underliyng;
+	public:
+		explicit SquareProxy(T val) : _underliyng(val) {}
+		operator T() const { return _underliyng * _underliyng; }
+	};
 public:
-	Person(string name1) : name(name1) {}
-	Person(const Person& p) : name(p.name) {
-		cout << "in copy ctor for " << name << endl;
-	}
-
-	friend std::ostream& operator<<(std::ostream& out, const Person& p) {
-		return out << p.name;
-	}
-	bool operator<(const Person& other)const {
-		return name < other.name;
-	}
+	using first_type = T;
+	using second_type = T;
+	T first;
+	SquareProxy second;
+	explicit SquarePair(T val) : first(val), second(val) {}
 };
 
-// main.cpp
-int main() {
-	// counter of number of lessons a person was in
-	map<Person, int> personCount;
-	personCount.emplace( "momo" , 1 );
-	personCount.emplace( "koko" , 2 );
-	//{ "koko" ,  2} };
-
-	// in this example we show how auto is smartly getting the correct type
-	// which may be mistakenly stated otherwise if type is selected manually 
-
-	cout << "=========================================" << endl;
-	cout << 1 << endl;
-	cout << "=========================================" << endl;
-	for (const auto& pCount : personCount) {
-		cout << pCount.first << ": " << pCount.second << endl;
-	}
-	cout << "=========================================" << endl;
-	cout << 2 << endl;
-	cout << "=========================================" << endl;
-	for (const std::pair<Person, int>& pCount : personCount) {
-		cout << pCount.first << ": " << pCount.second << endl;
-	}
-	cout << "=========================================" << endl;
-	cout << 3 << endl;
-	cout << "=========================================" << endl;
-	for (const std::pair<const Person, int>& pCount : personCount) {
-		cout << pCount.first << ": " << pCount.second << endl;
-	}
+template <typename PAIR, typename PAIR::first_type* dummy1 = nullptr, typename PAIR::second_type* dummy2 = nullptr>
+std::ostream & operator<<(std::ostream & out, const PAIR & pair)
+{
+	return out << pair.first << ' ' << pair.second;
+}
+int main()
+{
+	SquarePair<int> x{ 5 };
+	std::cout << x <<"\n";
 }
 
+// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
+// Debug program: F5 or Debug > Start Debugging menu
+
+// Tips for Getting Started: 
+//   1. Use the Solution Explorer window to add/manage files
+//   2. Use the Team Explorer window to connect to source control
+//   3. Use the Output window to see build output and other messages
+//   4. Use the Error List window to view errors
+//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
+//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
