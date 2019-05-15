@@ -31,3 +31,37 @@ or protected non-virtual
 
 
 Write contributor in file header and over fixes
+
+Конец был очень скоротечным и пунктирным
+
+
+15 марта 2019
+9:00 Wellcome
+20 mins late start,  и так и не начали
+10 минут говорил Декан Академии
+Затем выступил организатор
+
+
+
+
+9:20 Jason Turner - Keynote: The best parts of C++
+9:40 Actual start
+clang-tidy with modernize
+fuzzers
+sanitizers
+
+
+11:05 Yehezkel Bernat Coroutines
+cppcoro::task<T>
+co_await operator changes function to coroutine
+co_yield generates result on the fly but return type ccpcoro::genrator (or async_generator) has to be specified explicitely. 
+it cannot be deduced from return value.
+
+Standard library still has no support of coroutines, but language provides operators for usage...
+
+
+12:15 Inbal Levi - Virtual tables or the overhead magic
+CRTP as alternative to the runtime-polimorfism
+Has no answer to creating collection of classes.
+On the other hand - algorithms that accept instances that are requied just to have specific member function do not bother about it...
+So they could work. How to pass collection to algorithm is another issue
