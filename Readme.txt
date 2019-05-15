@@ -23,3 +23,11 @@ and https://godbolt.org to see the generated assembler from our code
 
 const X&&
 sample http://stackoverflow.com/a/14742636
+
+Use state strategy instead of polimorfism
+
+public virtual destructor
+or protected non-virtual 
+
+
+Write contributor in file header and over fixes
