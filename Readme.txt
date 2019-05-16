@@ -65,3 +65,16 @@ CRTP as alternative to the runtime-polimorfism
 Has no answer to creating collection of classes.
 On the other hand - algorithms that accept instances that are requied just to have specific member function do not bother about it...
 So they could work. How to pass collection to algorithm is another issue
+
+
+14:35 Hana Dusikova - Compile time regular expressions
+ctre library
+pcre2
+
+to generate types - declare functions returning the type to be generated and use decltype of the return value
+
+15:55 Bryce Adelstein Lelbach The C++ Execution model
+
+
+16-05
+9:30 Anastasia Kazakova - C++ ecosystem: For better, for worse
