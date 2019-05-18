@@ -77,4 +77,12 @@ to generate types - declare functions returning the type to be generated and use
 
 
 16-05
-9:30 Anastasia Kazakova - C++ ecosystem: For better, for worse
+9:30 Anastasia Kazakova - C++ ecosystem: For better, for worse. Not very useful
+
+10:45 Nimrod Sapir - High Frequency Trading and Ultra Low Latency development technics
+A little bit controversal in a way that way do "unmesuraable optimisations..."
+
+12:00 Phil Nesh - The Dawn of the New Error
+
+
+14:15 Avi Kivity - Building efficient I/O intensive applications with Seastar
